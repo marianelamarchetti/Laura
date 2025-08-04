@@ -1,0 +1,731 @@
+html {
+  font-size: 62.5%; /* 1rem = 10px */
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.inicio {
+  background-image: url('img/fondo_inicio1.avif'); /* Cambia por tu imagen */
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  position: relative;
+  color: white;
+  text-align: center;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5); /* oscurece un poco la imagen para que se lea mejor el texto */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay h1 {
+  font-size: 48px;
+  margin-bottom: 40px;
+    font-family:  'IBM Plex Serif', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.botones-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.boton {
+  background-color: #e0c3a3;
+  color: #333;
+  text-decoration: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.boton:hover {
+  background-color: #fff2e5;
+  transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+  .inicio{
+    background-image: url('img/fondo_inicio.webp'); /* Cambia por tu imagen */
+    background-size: cover;
+    background-position: center;
+    }
+}
+
+/* Estilos para la página de login */
+.login-form {
+  background-image: url(img/fondo-login.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding-top: 20rem;
+  min-height: 100vh; /* Asegura que ocupa toda la pantalla */
+}
+
+.login-fieldset {
+  width: 35rem;
+  height: 35rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 0.2rem solid #ccc;
+  border-radius: 0.8rem;
+  padding: 0.9rem 0.8rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-legend {
+  font-size: 2.5rem;;
+  color: #fff;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column; /* apila el label encima del input */
+  align-items: flex-start; /* alinea todo a la izquierda */
+  margin: 1rem 2.5rem
+}
+
+.login-label {
+  margin-top: 1rem; /* espacio entre el label y el input */
+  font-weight: bold;
+  color: #fff;
+}
+
+.login-input {
+  width: 100%;
+  padding: 0.3rem;
+  font-family: 'Arial', sans-serif;  /* Cambia la tipografía */
+  font-size: 1.2rem;
+  font-weight: 500;
+  border: 0.2rem solid #ffffff;
+  border-radius: 0.5rem;
+}
+
+
+.login-label {
+  margin-bottom: 0.3rem;
+  font-weight: bold;
+  font-size: 1.3rem;
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+.username,
+.password {
+  display: block;
+  width: 100%;
+  margin: 2rem 0;
+  padding: 0.8rem;
+  border: 0.2rem solid #1f1e1e;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+
+.login-boton {
+  height: 3rem;
+  width: 25rem;
+  background-color: #58174a;
+  border: 0.2rem solid #ffffff;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+  color: #fff;
+}
+
+.login-boton:hover {
+  background-color: #ecb9e1;
+  color: #0e0d0d;
+}
+
+
+/*Panel de administacion*/
+
+/* Contenedor principal del panel */
+.admin-panel-content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4rem;
+  flex-wrap: wrap; /* Para que se adapten en pantallas pequeñas */
+  padding: 2rem;
+}
+
+.h1-panel-adm {
+  font-size: 2.5rem;
+  margin-bottom: 4rem;
+  color: #3a3a3a;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+.h2-panel-adm {
+  font-size: 2.5rem;
+  margin-top: 5rem;
+  color: #4b4b4b;
+  text-align: center;
+}
+
+.label-panel-adm {
+  display: block;
+  font-size: 2rem;
+  text-align: center;
+  margin: 1rem auto 0.5rem auto;
+}
+
+.category-select {
+  padding: 0.6rem;
+  font-size: 1.5rem;
+  border: 1px solid #aaa;
+  border-radius: 0.4rem;
+  margin: 1rem auto;
+  width: 100%;
+  max-width: 400px;
+  display: block;
+}
+
+/* Tabla de productos */
+.products-table {
+  border-collapse: collapse;
+  font-size: 1.8rem;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 80rem;
+  margin-right: 5rem;
+}
+
+.products-table th,
+.products-table td {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  text-align: center;
+  width: 20rem;
+}
+
+.products-table th {
+  background-color: #f3e2f1;
+  color: #333;
+}
+
+.products-table td button {
+  margin-right: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  border: none;
+  border-radius: 0.3rem;
+  background-color: #b057a1;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.3rem;
+  transition: background-color 0.2s ease;
+}
+
+.products-table td button:hover {
+  background-color: #d378c1;
+}
+
+.products-table img {
+  border-radius: 4px;
+  width: 6rem;
+  height: auto;
+}
+
+/* Formulario de producto */
+.product-form {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  width: 100%;
+  max-width: 50rem;
+  text-align: center;
+}
+
+.product-form input[type="text"],
+.product-form input[type="number"],
+.product-form select,
+.product-form input[type="file"] {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.7rem;
+  font-size: 1.5rem;
+  border: 1px solid #bbb;
+  border-radius: 0.4rem;
+  box-sizing: border-box;
+}
+
+.label-form {
+  font-size: 1.5rem;
+}
+
+/* Botón principal */
+.buton-panel-adm {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-color: #58174a;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buton-panel-adm:hover {
+  background-color: #832364;
+}
+
+.boton-volver-inicio{
+  width: 9rem;
+  padding: 0.8rem;
+  margin-left: 3rem;
+  margin-top: 3rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: #58174a;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Media Queries para responsive design */
+
+/* Tablets (≤ 1024px) */
+@media (max-width: 1024px) {
+  .admin-panel-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .products-table {
+    max-width: 100%;
+    margin-right: 0;
+  }
+
+  .category-select{
+    font-size: 1.4rem
+  }
+
+  .category-select option {
+    font-size: 1.2rem;
+  }
+
+  .product-form {
+    max-width: 90%;
+  }
+
+  .h2-panel-adm {
+    font-size: 2rem;
+    margin-top: 3rem;
+  }
+
+  .product-form input,
+  .category-select {
+    font-size: 1.4rem;
+  }
+
+  .buton-panel-adm {
+    font-size: 1.4rem;
+  }
+}
+
+/* Móviles (≤ 600px) */
+@media (max-width: 600px) {
+  .h1-panel-adm {
+    font-size: 2rem;
+  }
+
+  .h2-panel-adm {
+    font-size: 1.8rem;
+  }
+
+  .label-panel-adm {
+    text-align: center;  
+    margin-left: auto;  
+    margin-right: auto;  
+    max-width: 90%;      
+  }
+
+  .category-select{
+    font-size: 1.4rem
+  }
+
+  .category-select option {
+    font-size: 1.2rem;
+  }
+
+  .products-table {
+    font-size: 1.4rem;
+    overflow-x: auto;
+    display: block;
+  }
+
+  .products-table th,
+  .products-table td {
+    font-size: 1.3rem;
+    padding: 0.5rem;
+  }
+
+  .product-form {
+    padding: 1.5rem;
+  }
+
+  .product-form input,
+  .product-form select,
+  .product-form input[type="file"] {
+    font-size: 1.3rem;
+  }
+
+  .label-form {
+    font-size: 1.3rem;
+  }
+
+  .buton-panel-adm {
+    font-size: 1.3rem;
+  }
+}
+
+
+/*Productos*/
+.titulo-categoria {
+  font-size: 3.5rem;
+  font-weight: 900;
+  text-align: center;
+  margin: 4rem 0 3rem 0;
+  color: #58174a;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 0.1rem;
+}
+
+/* Contenedor de productos debajo del título */
+.contenedor-productos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto 5rem auto;
+  padding: 0 1rem;
+}
+
+/* Cada producto */
+.producto {
+  background-color: #fff;
+  border-radius: 0.8rem;
+  box-shadow: 0 4px 12px rgba(88, 23, 74, 0.15);
+  width: 220px;
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.producto:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(88, 23, 74, 0.3);
+}
+
+.producto img {
+  max-width: 100%;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  background-color: #f7f5f8;
+  margin-bottom: 1rem;
+}
+
+.producto .nombre {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #4b4b4b;
+  margin-bottom: 0.4rem;
+}
+
+.producto .precio {
+  font-size: 1.1rem;
+  color: #b057a1;
+  font-weight: 600;
+}
+
+/* Responsive para pantallas chicas */
+@media (max-width: 600px) {
+  .titulo-categoria {
+    font-size: 2.5rem;
+    margin: 3rem 0 2rem 0;
+  }
+
+  .producto {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .producto img {
+    height: 140px;
+  }
+
+  .producto .nombre {
+    font-size: 1.1rem;
+  }
+
+  .producto .precio {
+    font-size: 1rem;
+  }
+}
+
+/*productos*/
+.header-producto {
+  display: flex;
+  flex-direction: column;  
+  justify-content: center; 
+  align-items: center;     
+  height: 45rem;          
+  position: relative;      
+  text-align: center;      
+  padding: 0 1rem;
+  background-image: url(img/portada.avif);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Si querés que el botón quede en una esquina, por ejemplo a la izquierda */
+.boton-volver {
+  position: absolute;
+  top: 3rem;
+  left: 3rem;
+  background-color: #58174a;
+  color: rgb(243, 236, 236);
+  border: none;
+  border-radius: 0.3rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 7rem;
+  height: 3rem;
+}
+
+.h1-productos{
+  font-family: 'Great Vibes', cursive;
+  font-size: 12rem;
+  padding-top: 1rem;
+  margin-bottom: 0rem;
+}
+
+.p-productos{
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  margin-top: 0;
+  font-weight: 600;
+}
+
+/* Estilos para el contenedor de las cartas */
+.contenedor-productos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* Carta individual del producto */
+.producto {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  width: 250px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Efecto hover */
+.producto:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+/* Imagen del producto */
+.producto img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Nombre del producto */
+.producto .nombre {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  color: #333;
+}
+
+/* Precio del producto */
+.producto .precio {
+  font-size: 1.5rem;
+  color: #666;
+  margin: 0.5rem 0 1rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .producto {
+    width: 90%;
+  }
+}
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  width: 60px;
+  height: 60px;
+  background-color: #25d366;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+}
+
+.whatsapp-float img {
+  width: 35px;
+  height: 35px;
+}
+
+
+/*Footer*/
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 2rem 40rem;
+  background-color: #030303;
+  border-top: 0.1rem solid #fff;
+  font-family: 'Arial', sans-serif;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer > div {
+  flex: 1;
+  text-align: center;
+  padding: 1rem;
+  border-left: 0.1rem solid #fff;
+}
+
+.footer > div:first-child {
+  border-left: none;
+}
+
+.footer-logo img {
+  max-width: 10rem;
+  height: auto;
+}
+
+.footer-pagos p {
+  font-size: 1.2rem;
+  color: #fff;
+  margin-top: 4rem;
+}
+
+.footer-social a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #fdfcfc;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+  margin-top: 4rem;
+}
+
+.footer-social a:hover {
+  color: #c13584; /* color Instagram */
+}
+
+.footer-social i {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 1rem;
+    gap: 1rem;
+  }
+
+  .footer > div {
+    flex: none;
+    width: 100%;
+    border-left: none !important; /* quitamos bordes verticales */
+    text-align: center;
+    padding: 0.5rem 0;
+  }
+
+  .footer-logo {
+    order: 1;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .footer-pagos {
+    order: 2;
+    padding-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer-social {
+    order: 3;
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .footer-logo img {
+    max-width: 9rem;
+    margin-bottom: 0;
+  }
+
+  .footer-pagos p,
+  .footer-social a {
+    font-size: 1.5rem;
+    margin-top: 0;
+  }
+
+  .footer-social i {
+    font-size: 1.8rem;
+  }
+}

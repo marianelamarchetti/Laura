@@ -1,0 +1,51 @@
+<!-- admin-login.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Administrador</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <form class="login-form">
+    <fieldset class="login-fieldset">
+      <legend class="login-legend">INICIAR SESIÓN</legend>
+
+      <div class="input-group">
+        <label for="username" class="login-label">USUARIO</label>
+        <input type="text" class="username" class="login-input" required>
+      </div>
+
+      <div class="input-group">
+        <label for="password" class="login-label">CONTRASEÑA</label>
+        <input type="password" class="password" class="login-input" required >
+      </div>
+
+      <button type="submit" class="login-boton">INGRESAR</button>
+    </fieldset>
+  </form>
+
+
+  <script>
+    document.querySelector(".login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const username = document.querySelector(".username").value;
+      const password = document.querySelector(".password").value;
+
+      const res = await fetch('http://localhost:3000/admin/login', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        localStorage.setItem("token", data.token);
+        window.location.href = "admin-panel.html";
+      } else {
+        alert("Credenciales inválidas");
+      }
+    });
+  </script>
+</body>
+</html>

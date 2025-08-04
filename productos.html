@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Productos - AromaLuz</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+  <header class="header-producto">
+    <button class="boton-volver" onclick="window.location.href='/'">Volver</button>
+    <h1 class="h1-productos">Aromaluz</h1>
+    <p class="p-productos">Velas de soja aromáticas y decorativas</p>
+  </header>
+  
+  <div class="productos contenedor-productos"></div>
+
+  <!-- Botón flotante de WhatsApp -->
+  <a href="https://wa.me/5493533440281" class="whatsapp-float" target="_blank" aria-label="Chat en WhatsApp">
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp">
+  </a>
+
+
+<footer class="footer">
+  <div class="footer-logo">
+    <img src="img/logo.png" alt="Logo del emprendimiento">
+  </div>
+
+  <div class="footer-pagos">
+    <p>Aceptamos pagos en efectivo y transferencias</p>
+  </div>
+
+  <div class="footer-social">
+    <a href="https://www.instagram.com/aromaluz_velasaromaticas?igsh=MWtsMWdjaG56cDJkbA==" target="_blank" aria-label="Instagram">
+      <i class="fab fa-instagram"></i>
+      <p>AromaLuz</p>
+    </a>
+  </div>
+</footer>
+
+
+
+<script>
+  // Obtener el parámetro 'categoria' de la URL
+  function obtenerCategoria() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('categoria') || 'velas';
+  }
+
+  // Cargar productos
+  async function cargarProductos() {
+    const categoria = obtenerCategoria();
+
+    try {
+      const respuesta = await fetch(`http://localhost:3000/productos/${categoria}`);
+      const productos = await respuesta.json();
+
+      const contenedor = document.querySelector('.contenedor-productos');
+      contenedor.innerHTML = ''; // limpiar
+
+      if (productos.length === 0) {
+        contenedor.innerHTML = '<p>No hay productos en esta categoría.</p>';
+        return;
+      }
+
+      productos.forEach(producto => {
+        const div = document.createElement('div');
+        div.className = 'producto';
+        div.innerHTML = `
+          <img src="/uploads/${producto.imagen}" alt="${producto.nombre}" />
+          <div class="nombre">${producto.nombre}</div>
+          <div class="precio">$${producto.precio}</div>
+        `;
+        contenedor.appendChild(div);
+      });
+    } catch (error) {
+      console.error('Error al cargar productos:', error);
+    }
+  }
+
+  cargarProductos();
+</script>
+
+</body>
+</html>
