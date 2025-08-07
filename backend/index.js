@@ -85,13 +85,19 @@ app.post('/admin/login', (req, res) => {
   }
 });
 
-// Middleware para proteger rutas admin
 function checkAuth(req, res, next) {
-  const token = req.headers['authorization'];
+  const authHeader = req.headers['authorization'];
+
+  if (!authHeader) {
+    return res.status(401).json({ message: 'Falta token' });
+  }
+
+  const token = authHeader.split(' ')[1]; 
+
   if (token === 'admin-token-123') {
     next();
   } else {
-    res.status(403).json({ message: 'No autorizado' });
+    res.status(403).json({ message: 'Token inválido o expirado. Por favor, iniciá sesión de nuevo.' });
   }
 }
 
@@ -150,4 +156,9 @@ app.delete('/admin/productos/:id', checkAuth, (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
+
+// Ruta protegida de prueba
+app.get('/admin/protegido', checkAuth, (req, res) => {
+  res.json({ message: 'Ruta protegida accedida correctamente' });
 });

@@ -51,11 +51,33 @@
   </div>
 
   <script>
-    const token = localStorage.getItem('adminToken');
+    // Obtener token globalmente
+    const token = localStorage.getItem("token");
     if (!token) {
-      alert('No estás autenticado. Por favor, hacé login primero.');
-      window.location.href = 'admin-login.html';
+      alert("No estás logueado");
+      window.location.href = "admin-login.html";
     }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const res = await fetch("http://localhost:3000/admin/protegido", {
+          headers: {
+            Authorization: "Bearer " + token
+          }
+        });
+
+        if (!res.ok) {
+          throw new Error("Token inválido");
+        }
+
+        const data = await res.json();
+        console.log("Acceso autorizado:", data.message);
+      } catch (err) {
+        alert("Token inválido o expirado. Por favor, iniciá sesión de nuevo.");
+        localStorage.removeItem("token");
+        window.location.href = "admin-login.html";
+      }
+    });
 
     let currentCategory = "velas";
     const categorySelect = document.querySelector(".category-select");
@@ -66,14 +88,14 @@
     const editId = document.querySelector(".edit-id");
     const productImageFile = document.querySelector(".product-image-file");
 
-    // Al cambiar la categoría en el select
+    // Cambiar categoría
     categorySelect.addEventListener("change", () => {
       currentCategory = categorySelect.value;
       loadProducts();
       resetForm();
     });
 
-    // Carga los productos de la categoría actual
+    // Cargar productos
     async function loadProducts() {
       try {
         const res = await fetch(`http://localhost:3000/productos/${currentCategory}`);
@@ -100,11 +122,10 @@
       }
     }
 
-    // Completa el formulario para editar
+    // Editar producto
     function editProduct(p) {
       productName.value = p.nombre;
       productPrice.value = p.precio;
-      // No hay campo para categoría, usamos la variable currentCategory
       editId.value = p.id;
       productImageFile.value = "";
     }
@@ -115,7 +136,7 @@
       try {
         const res = await fetch(`http://localhost:3000/admin/productos/${id}`, {
           method: "DELETE",
-          headers: { 'Authorization': token }
+          headers: { 'Authorization': 'Bearer ' + token }
         });
         if (!res.ok) throw new Error('Error eliminando producto');
         loadProducts();
@@ -125,14 +146,14 @@
       }
     }
 
-    // Guardar producto (crear o actualizar)
+    // Guardar producto
     productForm.addEventListener("submit", async e => {
       e.preventDefault();
 
       const formData = new FormData();
       formData.append("nombre", productName.value);
       formData.append("precio", productPrice.value);
-      formData.append("categoria", currentCategory); // categoría tomada del select
+      formData.append("categoria", currentCategory);
 
       if (productImageFile.files.length > 0) {
         formData.append("imagen", productImageFile.files[0]);
@@ -143,13 +164,13 @@
         if (editId.value) {
           res = await fetch(`http://localhost:3000/admin/productos/${editId.value}`, {
             method: "PUT",
-            headers: { 'Authorization': token },
+            headers: { 'Authorization': 'Bearer ' + token },
             body: formData
           });
         } else {
           res = await fetch("http://localhost:3000/admin/productos", {
             method: "POST",
-            headers: { 'Authorization': token },
+            headers: { 'Authorization': 'Bearer ' + token },
             body: formData
           });
         }
@@ -167,10 +188,9 @@
       productImageFile.value = "";
     }
 
-    // Inicializar valores
+    // Inicializar
     categorySelect.value = currentCategory;
     loadProducts();
   </script>
 </body>
 </html>
-
