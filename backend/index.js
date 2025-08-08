@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, '..')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Conectar a la base de datos (se crea si no existe)
-const db = new sqlite3.Database('./productos.db', (err) => {
+const db = new sqlite3.Database('./backend/productos.db', (err) => {
   if (err) return console.error(err.message);
   console.log('Conectado a la base de datos SQLite');
 });

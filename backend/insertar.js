@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 
-const db = new sqlite3.Database('./productos.db');
+const db = new sqlite3.Database('./backend/productos.db');
 
 const productos = [
   { nombre: 'Vela aromática', imagen: 'vela1.jpg', precio: 1500, categoria: 'velas' },
