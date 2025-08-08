@@ -69,6 +69,15 @@ app.get('/productos/:categoria', (req, res) => {
   });
 });
 
+// Traemos todas las categorias
+app.get('/categorias', (req, res) => {
+  const sql = `SELECT DISTINCT categoria FROM productos`;
+  db.all(sql, [], (err, categorias) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(categorias.map(c => c.categoria));
+  });
+});
+
 // Usuario administrador hardcodeado
 const adminUser = {
   username: 'admin',

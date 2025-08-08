@@ -1,30 +1,122 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Tienda Aromas</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Agregar descripción y palabras claves -->
+  <meta name="description" content="Tienda donde encontraras todo para aromatizar">
+  <meta name="keywords" content="velas, aromatizadores">
+  <meta name="author" content="Marianela Marchetti - Matías Marchetti">
+
+  <!-- Titulo de la pestaña -->
+  <title>AromaLuz</title>
+
+  <!-- Icono de la pestaña -->
+  <link rel="shortcut icon" href="/img/logo-icono.ico" type="image/x-icon">
+
+  <!-- defer cargar de manera diferida el script del html -->
+  <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+    crossorigin="anonymous"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Link de estilos de Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+  <!-- Iconos de Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
   <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif&display=swap" rel="stylesheet">
-
 </head>
+
 <body>
-  <section class="inicio">
-    <div class="overlay">
-      <h1>AromaLuz</h1>
-      <div class="botones-menu">
-        <a href="productos.html?categoria=velas" class="boton">Velas de soja</a>
-        <a href="productos.html?categoria=souvenir" class="boton">Souvenir velitas</a>
-        <a href="productos.html?categoria=sahumerios" class="boton">Sahumerios</a>
-        <a href="productos.html?categoria=aromatizantes" class="boton">Aromatizantes</a>
-        <!-- <a href="admin-login.html" class="boton" style="position: absolute; bottom: 20px; right: 20px;">Admin</a> -->
+  <header class="header-producto">
+    <h1 class="h1-productos">Aromaluz</h1>
+    <p class="p-productos">Velas de soja aromáticas y decorativas</p>
+  </header>
 
-      </div>
+  <!-- Sección de categorías -->
+  <div class="categorias contenedor-productos"></div>
+
+  <!-- Contenedor de productos -->
+  <!-- <div class="productos contenedor-productos"></div> -->
+
+  <!-- Botón flotante de WhatsApp -->
+  <a href="https://wa.me/5493533440281" class="whatsapp-float" target="_blank" aria-label="Chat en WhatsApp">
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp">
+  </a>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">
+      <img src="img/logo.png" alt="Logo del emprendimiento">
     </div>
-  </section>
+
+    <div class="footer-pagos">
+      <h2 style="color:white">Sobre nosotros</h2>
+      <p><strong>Aromaluz:</strong> Velas artesanales que perfuman y decoran tu espacio. Ofrecemos una amplia variedad
+        de aromas y diseños, perfectos para regalar o para darte un gusto. Ilumina tus momentos con
+        la calidad y el encanto de nuestras velas
+      </p>
+    </div>
+
+    <div class="footer-social">
+      <a href="https://www.instagram.com/aromaluz_velasaromaticas?igsh=MWtsMWdjaG56cDJkbA==" target="_blank">
+        <img src="./img/icons8-instagram-36.png" alt="icono-instagram">
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    // Cargar categorías desde el backend
+    async function cargarCategorias() {
+      try {
+        const response = await fetch('http://localhost:3000/categorias');
+        const categorias = await response.json();
+        const contenedor = document.querySelector('.contenedor-productos');
+        contenedor.innerHTML = '';
+
+        categorias.forEach(categoria => {
+          const div = document.createElement('div');
+          div.className = 'producto';
+
+          // Asignar imagen por nombre de categoría (puede ser dinámica o fija)
+          const imagen = `/img/categorias/${categoria}.jpg`; // Ejemplo: "velas.jpg"
+
+          // Contenido del div con imagen y nombre
+          // <img src="/uploads/${producto.imagen}" alt="${producto.nombre}" />
+          div.innerHTML = `
+            <img src="${imagen}" alt="${categoria}" class="categoria-img">
+            <p class="categoria-nombre">${categoria.charAt(0).toUpperCase() + categoria.slice(1)}</p>
+          `;
+
+          // Click para cargar productos
+          div.addEventListener('click', () => {
+            window.location.href = `productos.html?categoria=${encodeURIComponent(categoria)}`;
+          });
+
+          contenedor.appendChild(div);
+        });        
+      } catch (error) {
+        console.error('Error al cargar categorías:', error);
+      }
+    }
+
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      cargarCategorias();
+    });   
 
 
-
+  </script>
 </body>
+
 </html>
