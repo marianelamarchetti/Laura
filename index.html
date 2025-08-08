@@ -76,10 +76,12 @@
   </footer>
 
   <script>
+    const API_URL = window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://aroma-luz.vercel.app/';
+
     // Cargar categorías desde el backend
     async function cargarCategorias() {
       try {
-        const response = await fetch('http://localhost:3000/categorias');
+        const response = await fetch(`API_URL/categorias`);
         const categorias = await response.json();
         const contenedor = document.querySelector('.contenedor-productos');
         contenedor.innerHTML = '';
