@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <button class="boton-volver-inicio" onclick="window.location.href='/'">Volver al inicio</button>
+  <button class="boton-volver-inicio" onclick="window.location.href='/'">Cerrar Sesión</button>
   <h1 class="h1-panel-adm">Panel de Administración</h1>
 
   <!-- Selección de categoría -->
@@ -43,7 +43,15 @@
       <input type="text" class="product-name" placeholder="Nombre del producto" required />
       <input type="number" class="product-price" placeholder="Precio" step="0.01" required />
       <br /><br />
-      <label for="productImageFile" class="label-form">Seleccionar imagen:</label>
+      <select class="product-category" required>
+        <option value="sahumerios">Sahumerios</option>
+        <option value="velas">Velas</option>
+        <option value="perfumes">Perfumes</option>
+        <option value="souvenir">Souvenir</option>
+        <option value="aromatizantes">Aromatizantes</option>
+      </select>
+      <br /><br />      
+      <label for="productImageFile" class="label-form"></label>
       <input type="file" class="product-image-file" accept="image/*" />
       <br /><br />
       <button type="submit" class="buton-panel-adm">Guardar</button>
