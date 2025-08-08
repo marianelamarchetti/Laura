@@ -32,8 +32,16 @@ db.run(`
     imagen TEXT,
     precio REAL,
     categoria TEXT
-  )
+  );
 `);
+
+// db.run(`   
+//   CREATE TABLE categorias (
+//     id INTEGER PRIMARY KEY AUTOINCREMENT,
+//     nombre TEXT NOT NULL,
+//     imagen TEXT -- ruta o nombre del archivo
+//   );
+// `);
 
 // Configuración de multer para guardar imágenes en carpeta uploads
 const storage = multer.diskStorage({
@@ -69,14 +77,92 @@ app.get('/productos/:categoria', (req, res) => {
   });
 });
 
+///////////////////////////
+// ENDPOINTS DE CATEGORIAS //
+///////////////////////////
+
 // Traemos todas las categorias
 app.get('/categorias', (req, res) => {
-  const sql = `SELECT DISTINCT categoria FROM productos`;
+  const sql = `SELECT * FROM Categorias`; // Traer todas las columnas que uses
   db.all(sql, [], (err, categorias) => {
     if (err) return res.status(500).json({ error: err.message });
-    res.json(categorias.map(c => c.categoria));
+    res.json(categorias); 
   });
 });
+
+// Crear categoría
+app.post('/categorias', upload.single('imagen'), (req, res) => {
+  const { nombre } = req.body;
+  const imagen = req.file ? req.file.filename : null;
+
+  if (!nombre) {
+    return res.status(400).json({ error: 'El campo nombre es obligatorio' });
+  }
+
+  const sql = `INSERT INTO Categorias (nombre, imagen) VALUES (?, ?)`;
+  const params = [nombre, imagen];
+
+  db.run(sql, params, function(err) {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.status(201).json({ id: this.lastID, nombre, imagen });
+  });
+});
+
+// Eliminar una categoría
+app.delete('/categorias/:id', (req, res) => {
+  const { id } = req.params;
+
+  const sql = `DELETE FROM Categorias WHERE id = ?`;
+
+  db.run(sql, [id], function(err) {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    if (this.changes === 0) {
+      return res.status(404).json({ error: 'Categoría no encontrada' });
+    }
+    res.json({ message: 'Categoría eliminada correctamente' });
+  });
+});
+
+// Endpoint para actualizar categoría
+app.put('/categorias/:id', upload.single('imagen'), (req, res) => {
+  const { id } = req.params;
+  const { nombre } = req.body;
+  const nuevaImagen = req.file ? req.file.filename : null;
+
+  if (!nombre) {
+    return res.status(400).json({ error: 'El campo nombre es obligatorio' });
+  }
+
+  const sqlSelect = `SELECT imagen FROM Categorias WHERE id = ?`;
+  db.get(sqlSelect, [id], (err, row) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (!row) return res.status(404).json({ error: 'Categoría no encontrada' });
+
+    const imagenAntigua = row.imagen;
+
+    const imagenParaGuardar = nuevaImagen || imagenAntigua;
+
+    const sqlUpdate = `UPDATE Categorias SET nombre = ?, imagen = ? WHERE id = ?`;
+    db.run(sqlUpdate, [nombre, imagenParaGuardar, id], function (err) {
+      if (err) return res.status(500).json({ error: err.message });
+
+      // Si subiste imagen nueva y hay imagen antigua, borrala
+      if (nuevaImagen && imagenAntigua) {
+        const rutaImagenAntigua = path.join(__dirname, 'uploads', imagenAntigua);
+        fs.unlink(rutaImagenAntigua, (err) => {
+          if (err) console.warn('No se pudo eliminar imagen antigua:', err.message);
+        });
+      }
+
+      res.json({ message: 'Categoría actualizada correctamente', id, nombre, imagen: imagenParaGuardar });
+    });
+  });
+});
+
 
 // Usuario administrador hardcodeado
 const adminUser = {
